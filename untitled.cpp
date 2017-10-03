@@ -1,4 +1,3 @@
-/* TLE : input need break early */
 #include <iostream>
 #include <cstdio>
 using namespace std;
