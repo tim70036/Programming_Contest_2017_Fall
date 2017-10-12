@@ -1,45 +1,29 @@
 #include <iostream>
-#include <cstdio>
-
+#include <set>
 using namespace std;
-int bin[5][5];
-int step[6];
-char type[6][10] = {"BCG", "BGC", "CBG", "CGB", "GBC", "GCB"};
-
+typedef unsigned long long ll;
 
 int main()
 {
-	while(cin >> bin[0][0] >> bin[0][1] >> bin[0][2] >> bin[1][0] >> bin[1][1] >> bin[1][2] >> bin[2][0] >> bin[2][1] >> bin[2][2])
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	
+	int t; cin >> t;
+	while(t--)
 	{
-		for(int i=0 ; i<6 ; i++)	step[i] = 0;
+		ll a, n;
+		cin >> a >> n;
 
-		/* BCG */
-		step[0] = bin[1][0] + bin[2][0] + bin[0][2] + bin[2][2] + bin[0][1] + bin[1][1];
-		/* BGC */
-		step[1] = bin[1][0] + bin[2][0] + bin[0][1] + bin[2][1] + bin[0][2] + bin[1][2];
-
-
-		/* CBG */
-		step[2] = bin[1][2] + bin[2][2] + bin[0][0] + bin[2][0] + bin[0][1] + bin[1][1];
-		/* CGB */
-		step[3] = bin[1][2] + bin[2][2] + bin[0][1] + bin[2][1] + bin[0][0] + bin[1][0];
-
-		/* GBC */
-		step[4] = bin[1][1] + bin[2][1] + bin[0][0] + bin[2][0] + bin[0][2] + bin[1][2];
-		/* GCB */
-		step[5] = bin[1][1] + bin[2][1] + bin[0][2] + bin[2][2] + bin[0][0] + bin[1][0];
-
-
-		int min = step[0];
-		int index = 0;
-		for(int i=0 ; i<6 ; i++)
+		set<ll> s;
+		exp = a;
+		while(1)
 		{
-			if(step[i] < min)
+			exp = (exp * a) % n;
+			if(s.find(exp) != s.end())
 			{
-				index = i;
-				min = step[i];
+				cout << exp << "\n";
 			}
+			s.insert(exp);
 		}
-		printf("%s %d\n",type[index], min);
 	}
 }
