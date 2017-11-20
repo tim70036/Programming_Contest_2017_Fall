@@ -1,3 +1,4 @@
+/* Problem: https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=2521 */
 #include <iostream>
 #include <cmath>
 using namespace std;
