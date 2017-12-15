@@ -1,4 +1,5 @@
 /* Problem: https://pc2.tfcis.org/sky/index.php/problem/view/230 */
+/* http://blog.csdn.net/yoer77/article/details/69236205 */
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -6,8 +7,9 @@
 #define M 20005
 using namespace std;
 
-bool table[2][M];
+int table[M];/* the amount of coin left for target moeny */
 int value[N];
+int amount[N];
 
 int main()
 {
@@ -18,32 +20,31 @@ int main()
     while(t--)
     {
         int n,tar; cin >> n >> tar;
-        int index = 1;
-        for(int i=0 ; i<n ; i++)
-        {
-            int c, k; cin >> c >> k;
-            /* View each coin as a item */
-            while(k--)	value[index++] = c;
-        }
+        for(int i=1 ; i<=n ; i++)
+            cin >> value[i] >> amount[i];
         
         /* Init DP */
-        table[0][0] = true;
-        for(int i=1 ; i<=tar ; i++)	table[0][i] = false;
+        for(int i=0 ; i<=tar ; i++)	table[i] = -1;
+        
+        /* First row */
+        for(int i=0 ; i<=amount[1] && i*value[1] <= tar ; i++)
+            table[i*value[1]] = amount[1] - i;
         
         /* DP */
-        for(int i=1 ; i<index ; i++)
+        for(int i=2 ; i<=n ; i++)
         {
-        	
             for(int j=0 ; j<=tar ; j++)
             {
-                if(j < value[i])
-                    table[i%2][j] = table[(i-1)%2][j];
+                if(table[j] >= 0)
+                    table[j] = amount[i]; /* Previous row has solution */
+                else if(j<value[i] || table[j-value[i]] <= 0)
+                    table[j] = -1; /* No solution */
                 else
-                    table[i%2][j] = table[(i-1)%2][j] || table[(i-1)%2][j-value[i]];
+                    table[j] = table[j-value[i]] - 1;
             }
         }
         
-        if(table[(index-1)%2][tar])	cout << "Yes\n";
+        if(table[tar] >= 0)	cout << "Yes\n";
         else cout << "No\n";
     }
 }
