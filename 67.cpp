@@ -15,7 +15,6 @@ inline bool check(int tar)
     return true;
 }
 
-/* Upper Bound */
 inline int BinarySearch(int left, int right)
 {
     while(left+1 < right)

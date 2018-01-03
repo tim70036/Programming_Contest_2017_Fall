@@ -1,3 +1,5 @@
+/* Problem: https://pc2.tfcis.org/sky/index.php/problem/view/37 */
+/* Hamilton cycle */
 #include <iostream>
 #include <algorithm>
 using namespace std;
